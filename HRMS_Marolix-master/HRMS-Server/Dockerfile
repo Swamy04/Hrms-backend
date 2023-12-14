@@ -20,4 +20,4 @@ ENV EMAIL_USE_TLS=True
 ENV EMAIL_USE_SSL=False
 ENV EMAIL_HOST_USER='nihar@marolix.com'
 ENV DEFAULT_FROM_EMAIL = 'mailto:nihar@marolix.com'
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:5000"]
