@@ -1,6 +1,10 @@
 pipeline {
     agent any
-
+     
+        environment {
+           path ="/path/to/pyenv/bin:${env.PATH}"
+           SHELL = '/bin/bash' // or '/bin/sh'  depending on your shell
+        }
     stages {
         stage(checkout) {
             steps {
@@ -17,10 +21,17 @@ pipeline {
         }
         stage(build){
             steps {
-                dir ("/var/lib/jenkins/workspace/hrms/HRMS_Marolix-master/HRMS-Server"){
+                dir ("/var/lib/jenkins/workspace/hrms1/HRMS_Marolix-master/HRMS-Server"){
                     script{
                         sh 'docker build -t hrmsimg .'
                     }
+                }
+            }
+        }
+        stage(deploy){
+            steps {
+                script {
+                    sh 'docker run --name myhrmscontainer -d -p 8000:8000 -e EMAIL_HOST_USER=myuser -e OTHER_VARIABLE=value python'
                 }
             }
         }
