@@ -1,28 +1,32 @@
 pipeline {
     agent any
-    
+
     stages {
-        stage('Checkout') {
+        stage(checkout) {
             steps {
                 git branch: 'main', url: 'https://github.com/Swamy04/Hrms-backend.git'
             }
         }
         
-        stage('Setup') {
+        stage('python dependencies') {
+            steps{
+               script{
+                   sh 'pipenv install --dev'
+               } 
+            }
+        }
+        stage(build){
+            steps {
+                dir ("/var/lib/jenkins/workspace/hrms/HRMS_Marolix-master/HRMS-Server"){
+                    script{
+                        sh 'docker build -t hrmsimg .'
+                    }
+                }
+            }
+        }
          
-            }
         }
         
-        stage('Test') {
-            steps {
-             
-            }
-        }
-        
-        stage('Deploy') {
-            steps {
-             
-            }
-        }
     }
-}
+    
+
