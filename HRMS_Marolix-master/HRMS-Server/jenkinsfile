@@ -31,7 +31,11 @@ pipeline {
         stage(deploy){
             steps {
                 script {
-                    sh 'docker run --name myhrmscontainer -d -p 8000:8000 -e EMAIL_HOST_USER=myuser -e OTHER_VARIABLE=value python'
+
+                  #  sh 'docker run --name myhrmscontainer -d -p 5000:5000 -e EMAIL_HOST_USER=myuser -e OTHER_VARIABLE=value python'
+                    sh 'docker run -d -p 5000:5000 <image name> python manage.py makemigrations'
+                    sh 'docker run -p <container name> 5000:5000 <image name> python manage.py runserver 0.0.0.0:5000
+                    sh 'docker start <container name>'
                 }
             }
         }
